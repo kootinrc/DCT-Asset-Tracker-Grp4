@@ -1,0 +1,141 @@
+/* ---------------------------------------------------------------------------
+   DESIGN TOKENS
+   This is the only file you need to touch to reskin the whole application.
+   Every component styles itself from these variables, never from raw hex.
+   --------------------------------------------------------------------------- */
+
+:root {
+  /* Surfaces — cool "label stock" greys, not warm cream, not tinted black */
+  --canvas: #eceff3;
+  --surface: #ffffff;
+  --surface-sunken: #f5f7f9;
+  --surface-ink: #17222c;
+  --surface-ink-soft: #24323f;
+
+  /* Text */
+  --text: #17222c;
+  --text-soft: #56667a;
+  --text-faint: #8695a6;
+  --text-on-ink: #eef2f6;
+  --text-on-ink-soft: #9fb0c0;
+
+  /* Lines */
+  --line: #d6dde4;
+  --line-strong: #bcc7d2;
+
+  /* Accent — petrol blue. Deliberately out of the red/amber/green band so it
+     never collides with the status colours below. */
+  --accent: #0d5c6b;
+  --accent-hover: #0a4956;
+  --accent-soft: #e2f0f2;
+  --accent-ring: #4fa3b0;
+
+  /* Brass — reserved for ONE meaning: machine-suggested, not yet confirmed
+     by a person. Nothing else in the UI may use it. */
+  --unconfirmed: #96631b;
+  --unconfirmed-soft: #fbf2e2;
+  --unconfirmed-line: #d9b370;
+
+  /* Status semantics */
+  --ok: #1f7a3d;
+  --ok-soft: #e6f3ea;
+  --warn: #9a5b00;
+  --warn-soft: #fdf0dd;
+  --bad: #ab2d24;
+  --bad-soft: #fbeae9;
+  --idle: #5b6b7a;
+  --idle-soft: #eceff2;
+
+  /* Type */
+  --font-ui: 'Archivo', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-id: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --size-micro: 0.6875rem;
+  --size-small: 0.8125rem;
+  --size-body: 0.9375rem;
+  --size-lead: 1.0625rem;
+  --size-h3: 1.25rem;
+  --size-h2: 1.625rem;
+  --size-h1: 2.125rem;
+
+  /* Space — 4px base */
+  --s1: 0.25rem;
+  --s2: 0.5rem;
+  --s3: 0.75rem;
+  --s4: 1rem;
+  --s5: 1.5rem;
+  --s6: 2rem;
+  --s7: 3rem;
+
+  /* Shape. Different radii for different jobs, not one radius everywhere. */
+  --r-control: 5px;
+  --r-panel: 10px;
+  --r-pill: 999px;
+
+  --shadow-drawer: -18px 0 48px rgba(23, 34, 44, 0.16);
+  --shadow-modal: 0 24px 64px rgba(23, 34, 44, 0.28);
+
+  --maxw: 1180px;
+}
+
+/* Dark variant. Token swap only — no component CSS changes.
+   Guarded so an explicit light choice always wins. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --canvas: #121a22;
+    --surface: #1a242e;
+    --surface-sunken: #16202a;
+    --surface-ink: #0d141b;
+    --surface-ink-soft: #1a242e;
+    --text: #e7edf3;
+    --text-soft: #a3b2c1;
+    --text-faint: #7b8b9b;
+    --text-on-ink: #e7edf3;
+    --text-on-ink-soft: #94a5b5;
+    --line: #2b3945;
+    --line-strong: #3b4c5a;
+    --accent: #3fa2b3;
+    --accent-hover: #55b7c8;
+    --accent-soft: #14323a;
+    --unconfirmed: #d9ab5f;
+    --unconfirmed-soft: #2e2413;
+    --unconfirmed-line: #6f5522;
+    --ok: #59b878;
+    --ok-soft: #14291c;
+    --warn: #d59a3e;
+    --warn-soft: #2c2113;
+    --bad: #e3776c;
+    --bad-soft: #2e1817;
+    --idle: #8fa0b0;
+    --idle-soft: #212d38;
+  }
+}
+
+:root[data-theme='dark'] {
+  --canvas: #121a22;
+  --surface: #1a242e;
+  --surface-sunken: #16202a;
+  --surface-ink: #0d141b;
+  --surface-ink-soft: #1a242e;
+  --text: #e7edf3;
+  --text-soft: #a3b2c1;
+  --text-faint: #7b8b9b;
+  --text-on-ink: #e7edf3;
+  --text-on-ink-soft: #94a5b5;
+  --line: #2b3945;
+  --line-strong: #3b4c5a;
+  --accent: #3fa2b3;
+  --accent-hover: #55b7c8;
+  --accent-soft: #14323a;
+  --unconfirmed: #d9ab5f;
+  --unconfirmed-soft: #2e2413;
+  --unconfirmed-line: #6f5522;
+  --ok: #59b878;
+  --ok-soft: #14291c;
+  --warn: #d59a3e;
+  --warn-soft: #2c2113;
+  --bad: #e3776c;
+  --bad-soft: #2e1817;
+  --idle: #8fa0b0;
+  --idle-soft: #212d38;
+}
