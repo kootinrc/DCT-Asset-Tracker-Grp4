@@ -1,18 +1,14 @@
-import { Amplify } from "aws-amplify";
-import {
-  fetchAuthSession,
-  signInWithRedirect,
-  signOut as amplifySignOut,
-} from "aws-amplify/auth";
-import { config } from "../config.js";
-import { CURRENT_USER } from "../data/seed.js";
+import { config } from '../config.js';
+import { CURRENT_USER } from '../data/seed.js';
+import { Amplify } from 'aws-amplify';
+import { fetchAuthSession, signInWithRedirect, signOut } from 'aws-amplify/auth';
 
 /**
  * Auth behind one interface so Cognito drops in later without touching the UI.
  * Shape: { getUser, signIn, signOut, getIdToken }
  */
 
-const STORAGE_KEY = "assetRegister.mockSession";
+const STORAGE_KEY = 'assetRegister.mockSession';
 
 const mockAuth = {
   async getUser() {
@@ -23,7 +19,7 @@ const mockAuth = {
       return null;
     }
   },
-  async signIn({ role = "Technician" } = {}) {
+  async signIn({ role = 'Technician' } = {}) {
     const user = { ...CURRENT_USER, groups: [role] };
     sessionStorage.setItem(STORAGE_KEY, JSON.stringify(user));
     return user;
@@ -41,9 +37,7 @@ const mockAuth = {
   },
 };
 
-//  * Cognito implementation. Install aws-amplify, uncomment, and set
-//  * VITE_USE_MOCK_AUTH=false.
-
+// Konfiguracja Cognito (wykorzystuje dane z config.js)
 Amplify.configure({
   Auth: {
     Cognito: {
@@ -52,10 +46,10 @@ Amplify.configure({
       loginWith: {
         oauth: {
           domain: config.cognito.domain,
-          scopes: ["openid", "email", "profile"],
+          scopes: ['openid', 'email', 'profile'],
           redirectSignIn: [window.location.origin],
           redirectSignOut: [window.location.origin],
-          responseType: "code",
+          responseType: 'code',
         },
       },
     },
@@ -68,16 +62,15 @@ const cognitoAuth = {
     if (!tokens?.idToken) return null;
     const c = tokens.idToken.payload;
     return {
-      sub: CURRENT_USER.sub, //change for <sub: c.sub,> after connecting db
+      sub: c.sub,
       email: c.email,
       name: c.name ?? c.email,
-      department: CURRENT_USER.department, // change for <c["custom:department"] ?? "",> after connecting db
-      // Roles come from the verified token, never from the browser.
-      groups: c["cognito:groups"] ?? ["Technician"], // change for <groups: c["cognito:groups"] ?? [],> after connecting db
+      department: c['custom:department'] ?? '',
+      groups: c['cognito:groups'] ?? [],
     };
   },
   signIn: () => signInWithRedirect(),
-  signOut: () => amplifySignOut(),
+  signOut: () => signOut(),
   async getIdToken() {
     const { tokens } = await fetchAuthSession();
     return tokens?.idToken?.toString() ?? null;
